@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class userTest extends TestCase
+class questionTest extends TestCase
 {
     /**
      * A basic unit test example.
@@ -16,13 +16,10 @@ class userTest extends TestCase
     public function testSave()
     {
         $user = factory(\App\User::class)->make();
-        $this->assertTrue($user->save());
-    }
-
-    public function testQuestions()
-    {
-        $user = factory(\App\User::class)->make();
-        $this->assertTrue(is_object($user->questions()->get()));
+        $user->save();
+        $question = factory(\App\Question::class)->make();
+        $question->user()->associate($user);
+        $this->assertTrue($question->save());
     }
 
 }
